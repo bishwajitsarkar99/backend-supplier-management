@@ -22,7 +22,7 @@ const geistMono = Geist_Mono({
 // ===============================
 export const metadata: Metadata = {
   title: {
-    default: "My Website – Best Products & Services",
+    default: "Supplier-Management",
     template: "%s | My Website",
   },
   description:
