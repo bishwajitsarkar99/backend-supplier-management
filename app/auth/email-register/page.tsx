@@ -14,7 +14,7 @@ import GroupImage from '@/components/auth-components/group-image';
 import Main from '@/components/main/main';
 import Header from '@/components/header/header';
 
-export default function ForgetPassword() {
+export default function UserEmail() {
     // scroll
     const [isScroll, setIsScroll] = React.useState(false);
     React.useEffect(() => {
@@ -46,12 +46,12 @@ export default function ForgetPassword() {
                             "tracking-wide drop-shadow-[2px_2px_0_rgba(0,0,0,0.2)] bg-linear-to-r from-emerald-800 to-indigo-400 text-transparent bg-clip-text"
                         )}>
                             <Div className={twMerge("w-170 h-16 flex justify-center items-center")}>
-                                <Span>Forget Password</Span>
+                                <Span>User</Span>
                             </Div>
                         </Div>
                     </Header>
                     <Flex justifycontent="between" items="center">
-                        <Card className={twMerge("w-full mx-30 my-30 shadow-sm hover:shadow-sm rounded-md aspect-video")}>
+                        <Card className={twMerge("w-full mx-30 my-30 shadow-md hover:shadow-md rounded-md")}>
                             <Form className="gird grid-cols-1 gap-4 p-10">
                                 <Div className={twMerge("input-group mb-5 text-center")}>
                                     <Input
@@ -63,22 +63,14 @@ export default function ForgetPassword() {
                                         )}
                                         placeholder=" "
                                     />
-                                    <label htmlFor="email" className={twMerge(
+                                    <label htmlFor="user-email" className={twMerge(
                                         "block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                                     )}>User Email</label>
                                 </Div>
                                 <Div className="col-span-1 mb-3">
                                     <SecondaryButton className="cursor-pointer w-full">
-                                        <Span>Send Email</Span>
+                                        <Span>Register</Span>
                                     </SecondaryButton>
-                                </Div>
-                                <Div className='flex justify-center items-center'>
-                                    <LinkButton href="/" className={twMerge(
-                                        "w-full",
-                                        "text-white font-medium text-sm cursor-pointer"
-                                    )}>
-                                        <Span>Back To Login</Span>
-                                    </LinkButton>
                                 </Div>
                             </Form>
                         </Card>

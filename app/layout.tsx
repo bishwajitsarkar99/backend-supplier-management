@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import "./index.min.css";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -89,7 +90,7 @@ export const metadata: Metadata = {
 
   // Icons
   icons: {
-    icon: "/favicon.ico",
+    icon: "/favicon.svg",
     apple: "/apple-touch-icon.png",
   },
 };

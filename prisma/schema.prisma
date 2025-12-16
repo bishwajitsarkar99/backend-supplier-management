@@ -1,0 +1,153 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+// # Run this in your terminal to migrate your database
+// npx prisma migrate dev --name init
+
+// # Run this in your terminal to generate your Prisma Client
+// npx prisma generate
+
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+//////////////////////////////////
+// ENUMS
+//////////////////////////////////
+enum UserStatus {
+  INACTIVE
+  ACTIVE
+  SUSPENDED
+}
+
+//////////////////////////////////
+// USER
+//////////////////////////////////
+model User {
+  id              Int        @id @default(autoincrement())
+
+  name            String?
+  email           String     @unique
+  password        String
+
+  roleId          Int        @map("role_id")
+  role            Role       @relation(fields: [roleId], references: [id])
+
+  emailVerifiedAt DateTime?  @map("email_verified_at")
+
+  contractNumber  Int?       @map("contract_number")
+  image           String?
+
+  rememberToken   String?    @map("remember_token")
+
+  referenceEmail  String?    @map("reference_email")
+  loginEmail      String?    @map("login_email")
+  mailingEmail    String?    @map("mailing_email")
+
+  status          UserStatus @default(INACTIVE)
+
+  branchId        Int?       @map("branch_id")
+  branch          Branch?    @relation(fields: [branchId], references: [id])
+
+  createdAt       DateTime   @default(now()) @map("created_at")
+  updatedAt       DateTime   @updatedAt @map("updated_at")
+
+  // Relations
+  createdBranches Branch[]   @relation("CreatedBranches")
+  updatedBranches Branch[]   @relation("UpdatedBranches")
+
+  createdBranchCategories BranchCategory[] @relation("CreatedBranchCategories")
+  updatedBranchCategories BranchCategory[] @relation("UpdatedBranchCategories")
+
+  @@map("users")
+}
+
+//////////////////////////////////
+// USER PERMISSION
+//////////////////////////////////
+
+
+//////////////////////////////////
+// ROLE
+//////////////////////////////////
+model Role {
+  id        Int     @id @default(autoincrement())
+  roleName  String  @map("role_name")
+  status    Int     @default(0)
+
+  users     User[]
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("roles")
+}
+
+//////////////////////////////////
+// ROLE PERMISSION
+//////////////////////////////////
+
+
+//////////////////////////////////
+// BRANCH CATEGORY
+//////////////////////////////////
+model BranchCategory {
+  id                   Int      @id @default(autoincrement())
+  branchCategoryName   String   @unique @map("branch_category_name")
+
+  createdById          Int      @map("created_by")
+  createdBy            User     @relation("CreatedBranchCategories", fields: [createdById], references: [id])
+
+  updatedById          Int      @map("updated_by")
+  updatedBy            User     @relation("UpdatedBranchCategories", fields: [updatedById], references: [id])
+
+  branches             Branch[]
+
+  createdAt            DateTime @default(now()) @map("created_at")
+  updatedAt            DateTime @updatedAt @map("updated_at")
+
+  @@map("branch_categories")
+}
+
+//////////////////////////////////
+// BRANCH
+//////////////////////////////////
+model Branch {
+  id                Int      @id @default(autoincrement())
+
+  branchCode        String   @map("branch_code")
+  branchType        String   @map("branch_type")
+  branchName        String   @map("branch_name")
+
+  divisionName      String   @map("division_name")
+  districtName      String   @map("district_name")
+  upazilaName       String   @map("upazila_name")
+  cityName          String   @map("city_name")
+  location          String
+
+  branchCategoryId  Int      @map("branch_category_id")
+  branchCategory    BranchCategory @relation(fields: [branchCategoryId], references: [id])
+
+  createdById       Int      @map("created_by")
+  createdBy         User     @relation("CreatedBranches", fields: [createdById], references: [id])
+
+  updatedById       Int      @map("updated_by")
+  updatedBy         User     @relation("UpdatedBranches", fields: [updatedById], references: [id])
+
+  users             User[]
+
+  createdAt         DateTime @default(now()) @map("created_at")
+  updatedAt         DateTime @updatedAt @map("updated_at")
+
+  @@map("branches")
+}
+
+

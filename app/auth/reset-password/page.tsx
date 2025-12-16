@@ -1,20 +1,20 @@
 "use client";
 import React, { Fragment } from 'react'
-import Card from '@/components/card/card';
-import Flex from '@/components/flex/flex';
-import Input from '@/components/input/input';
-import SecondaryButton from '@/components/button/button';
-import { twMerge } from 'tailwind-merge';
-import Section from '@/components/section/section';
-import Form from '@/components/form/form';
-import Div from '@/components/div/div';
-import Span from '@/components/span/span';
-import { LinkButton } from '@/components/button/link';
-import GroupImage from '@/components/auth-components/group-image';
-import Main from '@/components/main/main';
-import Header from '@/components/header/header';
+import Card from '@/components/card/card'
+import Flex from '@/components/flex/flex'
+import Input from '@/components/input/input'
+import { twMerge } from 'tailwind-merge'
+import SecondaryButton from '@/components/button/button'
+import { LinkButton } from '@/components/button/link'
+import Section from '@/components/section/section'
+import Form from '@/components/form/form'
+import Div from '@/components/div/div'
+import Span from '@/components/span/span'
+import GroupImage from '@/components/auth-components/group-image'
+import Main from '@/components/main/main'
+import Header from '@/components/header/header'
 
-export default function ForgetPassword() {
+export default function ResetPassword() {
     // scroll
     const [isScroll, setIsScroll] = React.useState(false);
     React.useEffect(() => {
@@ -46,14 +46,14 @@ export default function ForgetPassword() {
                             "tracking-wide drop-shadow-[2px_2px_0_rgba(0,0,0,0.2)] bg-linear-to-r from-emerald-800 to-indigo-400 text-transparent bg-clip-text"
                         )}>
                             <Div className={twMerge("w-170 h-16 flex justify-center items-center")}>
-                                <Span>Forget Password</Span>
+                                <Span>Reset Password</Span>
                             </Div>
                         </Div>
                     </Header>
                     <Flex justifycontent="between" items="center">
                         <Card className={twMerge("w-full mx-30 my-30 shadow-sm hover:shadow-sm rounded-md aspect-video")}>
-                            <Form className="gird grid-cols-1 gap-4 p-10">
-                                <Div className={twMerge("input-group mb-5 text-center")}>
+                            <Form className="gird grid-cols-1 gap-4 p-5">
+                                <Div className={twMerge("input-group mb-5")}>
                                     <Input
                                         type="email"
                                         className={twMerge(
@@ -63,19 +63,47 @@ export default function ForgetPassword() {
                                         )}
                                         placeholder=" "
                                     />
-                                    <label htmlFor="email" className={twMerge(
+                                    <label htmlFor="user-email" className={twMerge(
                                         "block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                                     )}>User Email</label>
                                 </Div>
+                                <Div className={twMerge("input-group mb-5")}>
+                                    <Input
+                                        type="password"
+                                        className={twMerge(
+                                            "ps-2 pt-1",
+                                            "input_email bg-white border border-[rgba(0,128,255,0.2)] text-gray-900 text-sm rounded-lg",
+                                            "focus:ring-blue-500 focus:border-blue-500 block w-full dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                                        )}
+                                        placeholder=" "
+                                    />
+                                    <label htmlFor="create-password" className={twMerge(
+                                        "block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                    )}>Create Password</label>
+                                </Div>
+                                <Div className={twMerge("input-group mb-5")}>
+                                    <Input
+                                        type="password"
+                                        className={twMerge(
+                                            "ps-2 pt-1 pb-1",
+                                            "input_email bg-white border border-[rgba(0,128,255,0.2)] text-gray-900 text-sm rounded-lg",
+                                            "focus:ring-blue-500 focus:border-blue-500 block w-full dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                                        )}
+                                        placeholder=" "
+                                    />
+                                    <label htmlFor="confrim-password" className={twMerge(
+                                        "block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                    )}>Confrim Password</label>
+                                </Div>
                                 <Div className="col-span-1 mb-3">
                                     <SecondaryButton className="cursor-pointer w-full">
-                                        <Span>Send Email</Span>
+                                        <Span>Reset Password</Span>
                                     </SecondaryButton>
                                 </Div>
                                 <Div className='flex justify-center items-center'>
                                     <LinkButton href="/" className={twMerge(
-                                        "w-full",
-                                        "text-white font-medium text-sm cursor-pointer"
+                                        "text-white font-medium text-sm cursor-pointer",
+                                        "w-full"
                                     )}>
                                         <Span>Back To Login</Span>
                                     </LinkButton>
