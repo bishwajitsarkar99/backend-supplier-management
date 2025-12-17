@@ -1,5 +1,5 @@
 "use client";
-import React, { Fragment } from 'react'
+import React, { Fragment, useEffect, useRef, useState } from 'react'
 import Card from '@/components/card/card'
 import Flex from '@/components/flex/flex'
 import Input from '@/components/input/input'
@@ -13,6 +13,7 @@ import Span from '@/components/span/span'
 import GroupImage from '@/components/auth-components/group-image'
 import Main from '@/components/main/main'
 import Header from '@/components/header/header'
+import { useRouter } from 'next/navigation';
 
 export default function ResetPassword() {
     // scroll
@@ -27,6 +28,31 @@ export default function ResetPassword() {
         }
         window.addEventListener("scroll", chnageProperty);
         return () => window.removeEventListener("scroll", chnageProperty);
+    }, []);
+
+    // back button loading
+    const [isLoading, setIsLoading] = useState(false);
+    const router = useRouter();
+    const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+    const clickButton = (e: React.MouseEvent<HTMLButtonElement>) => {
+        e.preventDefault();
+        if (isLoading) return;
+
+        setIsLoading(true);
+
+        timeoutRef.current = setTimeout(() => {
+            router.push("/");
+        }, 500);
+    }
+
+    // back button time clear
+    useEffect(() => {
+        return () => {
+            if (timeoutRef.current) {
+                clearTimeout(timeoutRef.current)
+            }
+        }
     }, []);
 
     return (
@@ -95,18 +121,25 @@ export default function ResetPassword() {
                                         "block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                                     )}>Confrim Password</label>
                                 </Div>
-                                <Div className="col-span-1 mb-3">
-                                    <SecondaryButton className="cursor-pointer w-full">
+                                <Div className='flex justify-between items-center'>
+                                    <SecondaryButton onClick={clickButton} className={twMerge(
+                                        "text-white font-medium text-sm cursor-pointer",
+                                        isLoading && 
+                                        "pointer-events-none opacity-60 cursor-not-allowed",
+                                        "w-32"
+                                    )}>
+                                        {isLoading ? (
+                                            <div className="flex items-center justify-center max-w-20 gap-1">
+                                                <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                                                <Span>Loading...</Span>
+                                            </div>
+                                        ) : (
+                                            <Span>Back To Login</Span>
+                                        )}
+                                    </SecondaryButton>
+                                    <SecondaryButton className="cursor-pointer w-36">
                                         <Span>Reset Password</Span>
                                     </SecondaryButton>
-                                </Div>
-                                <Div className='flex justify-center items-center'>
-                                    <LinkButton href="/" className={twMerge(
-                                        "text-white font-medium text-sm cursor-pointer",
-                                        "w-full"
-                                    )}>
-                                        <Span>Back To Login</Span>
-                                    </LinkButton>
                                 </Div>
                             </Form>
                         </Card>

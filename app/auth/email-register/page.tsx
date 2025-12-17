@@ -1,5 +1,5 @@
 "use client";
-import React, { Fragment } from 'react'
+import React, { Fragment, useEffect, useRef, useState } from 'react'
 import Card from '@/components/card/card';
 import Flex from '@/components/flex/flex';
 import Input from '@/components/input/input';
@@ -13,6 +13,7 @@ import { LinkButton } from '@/components/button/link';
 import GroupImage from '@/components/auth-components/group-image';
 import Main from '@/components/main/main';
 import Header from '@/components/header/header';
+import { useRouter } from 'next/navigation';
 
 export default function UserEmail() {
     // scroll
@@ -27,6 +28,32 @@ export default function UserEmail() {
         }
         window.addEventListener("scroll", chnageProperty);
         return () => window.removeEventListener("scroll", chnageProperty);
+    }, []);
+
+    // back to login button loading
+    const [isLoading, setIsLoading] = useState(false);
+    const router = useRouter();
+    const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+    // click handler
+    const ClickButtonHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
+        e.preventDefault();
+
+        if (isLoading) return;
+        setIsLoading(true);
+
+        timeoutRef.current = setTimeout(() => {
+            router.push("/");
+        }, 500);
+    }
+
+    // clear timeout
+    useEffect(() => {
+        return () => {
+            if (timeoutRef.current) {
+                clearTimeout(timeoutRef.current)
+            }
+        }
     }, []);
 
     return (
@@ -52,7 +79,7 @@ export default function UserEmail() {
                     </Header>
                     <Flex justifycontent="between" items="center">
                         <Card className={twMerge("w-full mx-30 my-30 shadow-md hover:shadow-md rounded-md")}>
-                            <Form className="gird grid-cols-1 gap-4 p-10">
+                            <Form className="gird grid-cols-1 gap-4 p-5">
                                 <Div className={twMerge("input-group mb-5 text-center")}>
                                     <Input
                                         type="email"
@@ -70,6 +97,26 @@ export default function UserEmail() {
                                 <Div className="col-span-1 mb-3">
                                     <SecondaryButton className="cursor-pointer w-full">
                                         <Span>Register</Span>
+                                    </SecondaryButton>
+                                </Div>
+                                <Div className="col-span-1 mb-3">
+                                    <SecondaryButton
+                                        onClick={ClickButtonHandler}
+                                        className={twMerge(
+                                            "cursor-pointer w-full",
+                                            isLoading &&
+                                            "pointer-events-none opacity-60 cursor-not-allowed",
+                                            "cursor-pointer"
+                                        )}>
+
+                                        {isLoading ? (
+                                            <div className="flex items-center justify-center gap-2">
+                                                <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                                                <Span>Loading...</Span>
+                                            </div>
+                                        ) : (
+                                            <Span>Back To Login</Span>
+                                        )}
                                     </SecondaryButton>
                                 </Div>
                             </Form>

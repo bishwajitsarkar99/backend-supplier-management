@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { twMerge } from "tailwind-merge";
 import Card from "@/components/card/card";
 import Flex from "@/components/flex/flex";
@@ -12,7 +12,8 @@ import Div from "@/components/div/div";
 import Form from "@/components/form/form";
 import Span from "@/components/span/span";
 import AuthHeader from "@/components/header/header";
-import GroupImage from "@/components/auth-components/group-image/index"
+import GroupImage from "@/components/auth-components/group-image/index";
+import { useRouter } from "next/navigation";
 
 export default function LoginPage() {
   // scroll
@@ -30,6 +31,9 @@ export default function LoginPage() {
   }, []);
 
   const [isLoading, setIsLoading] = useState(false);
+  const [isButtonLoading, setIsButtonLoading] = useState(false);
+  const router = useRouter();
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
   const [emailValue, setEmailValue] = useState("");
   const [passwordValue, setPasswordValue] = useState("");
 
@@ -41,13 +45,46 @@ export default function LoginPage() {
   const onChangePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPasswordValue(e.target.value);
   };
-  // button loading
-  const handleCreateAccount = () => {
+  // create account button loading
+  const handleCreateAccount = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    if (isLoading) return;
     setIsLoading(true);
+
+    timeoutRef.current = setTimeout(() => {
+      router.push("/auth/create-account");
+    }, 500);
+
   };
-  const handleForgetPassword = () => {
-    setIsLoading(true);
+  // create account button loading clear time out
+  useEffect(() => {
+    return () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current)
+      }
+    }
+  }, []);
+
+  // forget password button loading
+  const handleForgetPassword = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    
+    if(isButtonLoading) return;
+
+    setIsButtonLoading(true);
+
+    timeoutRef.current = setTimeout(() => {
+      router.push("/auth/forget-password");
+    }, 500);
   };
+  // forget password button loading clear timeout
+  useEffect(() => {
+    return () => {
+      if(timeoutRef.current){
+        clearTimeout(timeoutRef.current)
+      }
+    }
+  }, []);
 
 
   return (
@@ -114,34 +151,36 @@ export default function LoginPage() {
                   </SecondaryButton>
                 </Div>
                 <Div className="flex justify-between items-center">
-                  <LinkButton
-                    href="/auth/create-account"
+                  <SecondaryButton
                     className={twMerge(
-                      "text-white font-medium text-sm",
-                      isLoading &&
+                      "text-white font-medium text-sm w-40",
+                      isLoading && "pointer-events-none opacity-60 cursor-not-allowed",
                       "cursor-pointer"
                     )}
                     onClick={handleCreateAccount}
                   >
                     {isLoading ? (
-                      <><span className="w-full h-fit text-white"></span>
+                      <div className="flex items-center justify-center gap-2">
+                        <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
                         <Span>Loading...</Span>
-                      </>
+                      </div>
                     ) : (<Span>Create Account</Span>)}
-                  </LinkButton>
-                  <LinkButton href="/auth/forget-password" className={twMerge(
-                    "text-white font-medium text-sm",
-                    isLoading &&
+                  </SecondaryButton>
+                  <SecondaryButton className={twMerge(
+                    "text-white font-medium text-sm w-40",
+                    isButtonLoading && 
+                    "pointer-events-none opacity-60 cursor-not-allowed",
                     "cursor-pointer"
                   )} onClick={handleForgetPassword}>
-                    {isLoading ? (
-                      <><span className="w-full h-fit text-white"></span>
+                    {isButtonLoading ? (
+                      <div className="flex items-center justify-center gap-2">
+                        <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
                         <Span>Loading...</Span>
-                      </>
+                      </div>
                     ) : (
                       <Span>Forget Password</Span>
                     )}
-                  </LinkButton>
+                  </SecondaryButton>
                 </Div>
               </Form>
             </Card>

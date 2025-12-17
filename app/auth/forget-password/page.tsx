@@ -1,5 +1,5 @@
 "use client";
-import React, { Fragment } from 'react'
+import React, { Fragment, useEffect, useRef, useState } from 'react'
 import Card from '@/components/card/card';
 import Flex from '@/components/flex/flex';
 import Input from '@/components/input/input';
@@ -9,10 +9,10 @@ import Section from '@/components/section/section';
 import Form from '@/components/form/form';
 import Div from '@/components/div/div';
 import Span from '@/components/span/span';
-import { LinkButton } from '@/components/button/link';
 import GroupImage from '@/components/auth-components/group-image';
 import Main from '@/components/main/main';
 import Header from '@/components/header/header';
+import { useRouter } from 'next/navigation';
 
 export default function ForgetPassword() {
     // scroll
@@ -27,6 +27,32 @@ export default function ForgetPassword() {
         }
         window.addEventListener("scroll", chnageProperty);
         return () => window.removeEventListener("scroll", chnageProperty);
+    }, []);
+
+    // back login btton loading
+    const [isLoading, setIsLoading] = useState(false);
+    const router = useRouter();
+    const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+    // button loading handler
+    const clickButton = (e: React.MouseEvent<HTMLButtonElement>) => {
+        e.preventDefault();
+
+        if (isLoading) return;
+        setIsLoading(true);
+
+        timeoutRef.current = setTimeout(() => {
+            router.push("/");
+        }, 500);
+    }
+
+    // button loading settime clear
+    useEffect(() => {
+        return () => {
+            if (timeoutRef.current) {
+                clearTimeout(timeoutRef.current)
+            }
+        }
     }, []);
 
     return (
@@ -73,12 +99,21 @@ export default function ForgetPassword() {
                                     </SecondaryButton>
                                 </Div>
                                 <Div className='flex justify-center items-center'>
-                                    <LinkButton href="/" className={twMerge(
+                                    <SecondaryButton onClick={clickButton} className={twMerge(
                                         "w-full",
+                                        isLoading &&
+                                        "pointer-events-none opacity-60 cursor-not-allowed",
                                         "text-white font-medium text-sm cursor-pointer"
                                     )}>
-                                        <Span>Back To Login</Span>
-                                    </LinkButton>
+                                        {isLoading ? (
+                                            <div className="flex items-center justify-center gap-1">
+                                                <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                                                <Span>Loading...</Span>
+                                            </div>
+                                        ) : (
+                                            <Span>Back To Login</Span>
+                                        )}
+                                    </SecondaryButton>
                                 </Div>
                             </Form>
                         </Card>
