@@ -32,6 +32,8 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
+import ProductIcon from "./ui/icons/icon"
+
 
 const data = {
   user: {
@@ -46,24 +48,34 @@ const data = {
       icon: IconDashboard,
     },
     {
-      title: "Lifecycle",
-      url: "#",
+      title: "Suppliers",
+      url: "/supplier",
+      icon: IconListDetails,
+    },
+    {
+      title: "Customers",
+      url: "/customer",
+      icon: IconListDetails,
+    },
+    {
+      title: "Products",
+      url: "/product",
+      icon: IconListDetails,
+    },
+    {
+      title: "Inventory",
+      url: "/inventory",
+      icon: IconListDetails,
+    },
+    {
+      title: "Stock",
+      url: "/stock",
       icon: IconListDetails,
     },
     {
       title: "Analytics",
       url: "#",
       icon: IconChartBar,
-    },
-    {
-      title: "Projects",
-      url: "#",
-      icon: IconFolder,
-    },
-    {
-      title: "Team",
-      url: "#",
-      icon: IconUsers,
     },
   ],
   navClouds: [
@@ -125,13 +137,33 @@ const data = {
       url: "#",
       icon: IconHelp,
     },
-    {
-      title: "Search",
-      url: "#",
-      icon: IconSearch,
-    },
   ],
   documents: [
+    {
+      name: "Auth",
+      url: "#",
+      icon: IconFolder,
+    },
+    {
+      name: "User",
+      url: "#",
+      icon: IconFolder,
+    },
+    {
+      name: "Post",
+      url: "#",
+      icon: IconFolder,
+    },
+    {
+      name: "News Letter",
+      url: "#",
+      icon: IconFolder,
+    },
+    {
+      name: "Contracts",
+      url: "#",
+      icon: IconFolder,
+    },
     {
       name: "Data Library",
       url: "#",
@@ -141,11 +173,6 @@ const data = {
       name: "Reports",
       url: "#",
       icon: IconReport,
-    },
-    {
-      name: "Word Assistant",
-      url: "#",
-      icon: IconFileWord,
     },
   ],
 }
@@ -161,8 +188,8 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
               className="data[slot=sidebar-menu-button]:!p-1.5"
             >
               <a href="#">
-                <IconInnerShadowTop className="![size-5]" />
-                <span className="text-base font-semibold">Acme Inc.</span>
+                <ProductIcon />
+                <span className="text-base font-semibold">Supplier Management</span>
               </a>
             </SidebarMenuButton>
           </SidebarMenuItem>
@@ -174,7 +201,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <NavSecondary items={data.navSecondary} className="mt-auto" />
       </SidebarContent>
       <SidebarFooter>
-        <NavUser user={data.user} />
+        {/* <NavUser user={data.user} /> */}
       </SidebarFooter>
     </Sidebar>
   )

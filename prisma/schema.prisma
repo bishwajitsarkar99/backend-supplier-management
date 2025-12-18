@@ -1,0 +1,81 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model branch_categories {
+  id                                        Int        @id @default(autoincrement())
+  branch_category_name                      String     @unique
+  created_by                                Int
+  updated_by                                Int
+  created_at                                DateTime   @default(now())
+  updated_at                                DateTime
+  branch_categories_created_by users      @relation("branch_categories_created_by", fields: [created_by], references: [id], onDelete: Cascade)
+  branch_categories_updated_by users      @relation("branch_categories_updated_by", fields: [updated_by], references: [id], onDelete: Cascade)
+  branches                                  branches[]
+}
+
+model branches {
+  id                               Int               @id @default(autoincrement())
+  branch_code                      String
+  branch_type                      String
+  branch_name                      String
+  division_name                    String
+  district_name                    String
+  upazila_name                     String
+  city_name                        String
+  location                         String
+  branch_category_id               Int
+  created_by                       Int
+  updated_by                       Int
+  created_at                       DateTime          @default(now())
+  updated_at                       DateTime
+  branch_categories                branch_categories @relation(fields: [branch_category_id], references: [id], onDelete: Cascade)
+  branches_created_by users             @relation("branches_created_by", fields: [created_by], references: [id], onDelete: Cascade)
+  branches_updated_by users             @relation("branches_updated_by", fields: [updated_by], references: [id], onDelete: Cascade)
+  users_id  users[]           @relation("branch_id")
+}
+
+model roles {
+  id         Int      @id @default(autoincrement())
+  role_name  String
+  status     Int      @default(0)
+  created_at DateTime @default(now())
+  updated_at DateTime
+  users      users[]
+}
+
+model users {
+  id                                                    Int                 @id @default(autoincrement())
+  name                                                  String?
+  email                                                 String              @unique
+  password                                              String
+  role_id                                               Int
+  email_verified_at                                     DateTime?
+  contract_number                                       Int?
+  image                                                 String?
+  remember_token                                        String?
+  reference_email                                       String?
+  login_email                                           String?
+  mailing_email                                         String?
+  status                                                UserStatus          @default(INACTIVE)
+  branch_id                                             Int?
+  created_at                                            DateTime            @default(now())
+  updated_at                                            DateTime
+  branch_categories_created_by branch_categories[] @relation("branch_categories_created_by")
+  branch_categories_updated_by branch_categories[] @relation("branch_categories_updated_by")
+  branches_created_byTousers                   branches[]          @relation("branches_created_by")
+  branches_updated_byTousers                   branches[]          @relation("branches_updated_by")
+  users_id                    branches?           @relation("branch_id", fields: [branch_id], references: [id], onDelete: Cascade)
+  roles                                                 roles               @relation(fields: [role_id], references: [id], onDelete: Cascade)
+}
+
+enum UserStatus {
+  INACTIVE
+  ACTIVE
+  SUSPENDED
+}
