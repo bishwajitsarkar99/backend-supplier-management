@@ -33,7 +33,9 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
 import ProductIcon from "./ui/icons/icon"
-
+import Link from "next/link"
+import { twMerge } from "tailwind-merge"
+import { title } from "process"
 
 const data = {
   user: {
@@ -41,41 +43,280 @@ const data = {
     email: "m@example.com",
     avatar: "/avatars/shadcn.jpg",
   },
+  dashboard: {
+    title: "Supplier Management",
+    url: "/admin/dashboard",
+    icon: ProductIcon as React.ComponentType<{ className?: string }>,
+  },
+  home: {
+    title: "Dashboard",
+    url: "/admin/dashboard",
+    icon: IconDashboard
+  },
   navMain: [
     {
-      title: "Dashboard",
-      url: "#",
-      icon: IconDashboard,
-    },
-    {
       title: "Suppliers",
-      url: "/supplier",
-      icon: IconListDetails,
-    },
-    {
-      title: "Customers",
-      url: "/customer",
-      icon: IconListDetails,
+      url: "#",
+      icon: IconFolder,
+      group: [
+        {
+          title: "Create",
+          url: "/admin/supplier/create",
+        },
+        {
+          title: "Details",
+          url: "/admin/supplier/details",
+        }
+      ]
     },
     {
       title: "Products",
-      url: "/product",
-      icon: IconListDetails,
+      url: "#",
+      icon: IconFolder,
+      group: [
+        {
+          title: "Category",
+          url: "/admin/product/category",
+        },
+        {
+          title: "Sub Category",
+          url: "/admin/product/sub-category",
+        },
+        {
+          title: "Model",
+          url: "/admin/product/model",
+        },
+        {
+          title: "Group",
+          url: "/admin/product/group",
+        },
+        {
+          title: "Color Varient",
+          url: "/admin/product/color-varient",
+        },
+        {
+          title: "Product Create",
+          url: "/admin/product/create",
+        }
+      ]
     },
     {
       title: "Inventory",
-      url: "/inventory",
-      icon: IconListDetails,
+      url: "#",
+      icon: IconFolder,
+      group: [
+        {
+          title: "Create",
+          url: "/admin/inventory",
+        },
+        {
+          title: "Return",
+          url: "/admin/inventory/return",
+        },
+        {
+          title: "Exchange",
+          url: "/admin/inventory/exchange",
+        },
+        {
+          title: "Manage",
+          url: "/admin/inventory/manage",
+        },
+        {
+          title: "Details",
+          url: "/admin/inventory/details",
+        }
+      ]
     },
     {
       title: "Stock",
-      url: "/stock",
-      icon: IconListDetails,
+      url: "#",
+      icon: IconFolder,
+      group: [
+        {
+          title: "Create",
+          url: "/admin/stock/create",
+        },
+        {
+          title: "Damage",
+          url: "/admin/stock/damage",
+        },
+        {
+          title: "Expaire",
+          url: "/admin/stock/expaire",
+        },
+        {
+          title: "Return",
+          url: "/admin/stock/return",
+        },
+        {
+          title: "Exchange",
+          url: "/admin/stock/exchange",
+        },
+        {
+          title: "Stock Summary",
+          url: "/admin/stock",
+        },
+        {
+          title: "Stock Register",
+          url: "/admin/stock/stock-register",
+        }
+      ]
+    },
+    {
+      title: "Customers",
+      url: "#",
+      icon: IconFolder,
+      group: [
+        {
+          title: "Create",
+          url: "/admin/customer",
+        },
+        {
+          title: "Details",
+          url: "/admin/customer/details",
+        }
+      ]
+    },
+    {
+      title: "Orders",
+      url: "#",
+      icon: IconFolder,
+      group: [
+        {
+          title: "Process",
+          url: "/admin/orders/process",
+        },
+        {
+          title: "Create",
+          url: "/admin/orders/create",
+        },
+        {
+          title: "Details",
+          url: "/admin/orders/details",
+        },
+        {
+          title: "Manage",
+          url: "/admin/orders/manage",
+        }
+      ]
+    },
+    {
+      title: "Sales",
+      url: "#",
+      icon: IconFolder,
+      group: [
+        {
+          title: "Invoice",
+          url: "/admin/sales/invoice",
+        },
+        {
+          title: "Sales Target",
+          url: "/admin/sales/details",
+        },
+        {
+          title: "Region Base Sales",
+          url: "/admin/sales/invoice",
+        },
+        {
+          title: "Sales Details",
+          url: "/admin/sales/details",
+        }
+      ]
+    },
+    {
+      title: "Expenses",
+      url: "#",
+      icon: IconFolder,
+      group: [
+        {
+          title: "Create",
+          url: "/admin/expenses/create",
+        },
+        {
+          title: "Details",
+          url: "/admin/expenses/details",
+        },
+        {
+          title: "Manage",
+          url: "/admin/expenses/manage",
+        },
+        {
+          title: "Expenses Register",
+          url: "/admin/expenses/expenses-register",
+        }
+      ]
+    },
+    {
+      title: "Vaoucher",
+      url: "#",
+      icon: IconFolder,
+      group: [
+        {
+          title: "Vaoucher Type",
+          url: "/admin/vaoucher/type",
+        },
+        {
+          title: "Create",
+          url: "/admin/vaoucher/create",
+        },
+        {
+          title: "Manage",
+          url: "/admin/vaoucher/manage",
+        },
+        {
+          title: "Vaoucher Details",
+          url: "/admin/vaoucher/details",
+        }
+      ]
+    },
+    {
+      title: "Budget",
+      url: "#",
+      icon: IconFolder,
+      group: [
+        {
+          title: "Budget Type",
+          url: "/admin/budget/type",
+        },
+        {
+          title: "Create",
+          url: "/admin/budget/create",
+        },
+        {
+          title: "Details",
+          url: "/admin/budget/details",
+        },
+        {
+          title: "Manage",
+          url: "/admin/budget/manage",
+        }
+      ]
+    },
+    {
+      title: "Requisition",
+      url: "#",
+      icon: IconFolder,
+      group: [
+        {
+          title: "Product Requisition",
+          url: "/admin/sales/product-requisition",
+        },
+        {
+          title: "Product Quation",
+          url: "/admin/sales/product-quation",
+        },
+      ]
     },
     {
       title: "Analytics",
       url: "#",
       icon: IconChartBar,
+      group: [
+        {
+          title: "Details",
+          url: "#",
+        }
+      ]
     },
   ],
   navClouds: [
@@ -165,6 +406,16 @@ const data = {
       icon: IconFolder,
     },
     {
+      name: "Cart",
+      url: "#",
+      icon: IconFolder,
+    },
+    {
+      name: "Wishlist",
+      url: "#",
+      icon: IconFolder,
+    },
+    {
       name: "Data Library",
       url: "#",
       icon: IconDatabase,
@@ -179,23 +430,53 @@ const data = {
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
-    <Sidebar collapsible="offcanvas" {...props}>
+    <Sidebar className={twMerge(
+      "bg-white bg-[repeating-linear-gradient(315deg,#80808010_0,#80808050_1px,transparent_0,transparent_60%)] bg-size-[5px_5px]",
+      "mask-size-[50%] mask-image-[radial-gradient(ellipse_100%_100%_at_20%_20%,#000_80%,transparent_100%)]",
+      "border border-[rgba(0,128,255,0.1)] rounded-sm",
+      "shadow-md",
+    )} collapsible="offcanvas" {...props}>
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton
               asChild
-              className="data[slot=sidebar-menu-button]:!p-1.5"
+              className={twMerge(
+                "data[slot=sidebar-menu-button]:!p-1.5",
+                "bg-white bg-[repeating-linear-gradient(315deg,#80808010_0,#80808050_1px,transparent_0,transparent_60%)] bg-size-[5px_5px]",
+                "mask-size-[50%] mask-image-[radial-gradient(ellipse_100%_100%_at_20%_20%,#000_80%,transparent_100%)]",
+                "hover:bg-white hover:bg-[linear-gradient(to_right,#80808020_1px,transparent_1px),linear-gradient(to_bottom,#80808020_1px,transparent_1px)] hover:bg-size-[5px_5px] mask-size-[50%] hover:animate-[rotatedGrid_6s_linear_infinite]",
+              )}
             >
-              <a href="#">
-                <ProductIcon />
-                <span className="text-base font-semibold">Supplier Management</span>
-              </a>
+              <Link href={data.dashboard.url}>
+                <data.dashboard.icon />
+                <span className={
+                  twMerge(
+                    "text-base font-semibold italic",
+                    "text-sm md:text-xl lg:text-xl xl:text-xl",
+                    "tracking-wide drop-shadow-[2px_2px_0_rgba(0,0,0,0.2)] bg-linear-to-r from-emerald-800 to-amber-600 text-transparent bg-clip-text"
+                  )
+                }>{data.dashboard.title}</span>
+              </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarHeader>
-      <SidebarContent>
+      <SidebarContent className={twMerge(
+        "bg-white bg-[repeating-linear-gradient(315deg,#80808010_0,#80808050_1px,transparent_0,transparent_60%)] bg-size-[5px_5px]",
+        "mask-size-[50%] mask-image-[radial-gradient(ellipse_100%_100%_at_20%_20%,#000_80%,transparent_100%)]",
+      )}>
+        <SidebarMenuButton className="cursor-pointer">
+          <Link href={data.home.url} className={twMerge(
+            "peer/menu-button flex w-full h-8 items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-hidden ring-sidebar-ring transition-[width,height,padding] focus-visible:ring-2 active:bg-sidebar-accent active:text-sidebar-accent-foreground disabled:pointer-events-none disabled:opacity-50 group-has-data-[sidebar=menu-action]/menu-item:pr-8 aria-disabled:pointer-events-none aria-disabled:opacity-50 data-[active=true]:bg-sidebar-accent data-[active=true]:font-medium data-[active=true]:text-sidebar-accent-foreground data-[state=open]:hover:bg-sidebar-accent data-[state=open]:hover:text-sidebar-accent-foreground group-data-[collapsible=icon]:size-8! group-data-[collapsible=icon]:p-2! [&>span:last-child]:truncate [&>svg]:size-4 [&>svg]:shrink-0 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground text-sm cursor-pointer",
+            "hover:bg-white hover:bg-[linear-gradient(to_right,#80808020_1px,transparent_1px),linear-gradient(to_bottom,#80808020_1px,transparent_1px)] hover:bg-size-[5px_5px] mask-size-[50%] hover:animate-[rotatedGrid_6s_linear_infinite]",
+          )}>
+            <data.home.icon className="size-4 text-gray-500 group-hover:text-orange-400 group-hover:transform-3d group-hover:transition group-hover:duration-200" />
+            <span className="text-gray-700 font-medium group-hover:text-gray-800 group-hover:transform-3d group-hover:transition group-hover:duration-200">
+              {data.home.title}
+            </span>
+          </Link>
+        </SidebarMenuButton>
         <NavMain items={data.navMain} />
         <NavDocuments items={data.documents} />
         <NavSecondary items={data.navSecondary} className="mt-auto" />
