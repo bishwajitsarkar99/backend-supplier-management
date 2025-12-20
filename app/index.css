@@ -1738,3 +1738,34 @@ span.text-bounce {
     transform: scaleX(1);
     opacity: 1;
 }
+.tree-root ul,
+.tree-root li {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.tree-list {
+  padding-left: 1rem;
+  border-left: 1px dashed rgb(182, 182, 182);
+}
+.tree-item {
+  position: relative;
+  margin-left: 0.5rem;
+  padding-left: 0.5rem;
+}
+.tree-item::before {
+  content: "";
+  position: absolute;
+  left: -1px;
+  top: 50%;
+  width: 1rem;
+  height: 0;
+  border-top: 1px dashed rgb(182, 182, 182);
+}
+.tree-item:hover{
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+.tree-item:hover::before{
+    border-top: none;
+}

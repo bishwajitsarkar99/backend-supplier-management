@@ -84,21 +84,25 @@ export function NavMain({
                     </Div>
                   </AccordionTrigger>
                   <AccordionContent>
-                    <Div>
-                      {item.group?.map((child) => (
-                        <Link
-                          key={child.title}
-                          href={child.url}
-                          className={twMerge(
-                            "peer/menu-button flex w-full items-center gap-2 overflow-hidden rounded-md p-2 pl-8 text-left outline-hidden ring-sidebar-ring transition-[width,height,padding] focus-visible:ring-2 disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 h-8 text-sm cursor-pointer",
-                            "bg-white"
-                          )}
-                        >
-                          <span className="text-gray-600 hover:text-gray-800">
-                            {child.title}
-                          </span>
-                        </Link>
-                      ))}
+                    <Div className="tree-root pl-4">
+                      <ul className="tree-list">
+                        {item.group?.map((child, index) => (
+                          <li key={child.title} className="tree-item">
+                            <Link
+                              href={child.url}
+                              className={twMerge(
+                                "tree-link flex items-center gap-2 rounded-md p-1 pl-4 text-left text-sm cursor-pointer",
+                                "hover:bg-white hover:bg-[linear-gradient(90deg,#80808020_1px,transparent_1px),linear-gradient(180deg,#80808020_1px,transparent_1px)] hover:bg-size-[5px_5px] mask-size-[50%] hover:animate-[rotatedGrid_6s_linear_infinite]",
+                                "bg-white"
+                              )}
+                            >
+                              <Span className="text-gray-600 hover:text-gray-800 font-medium hover:scale-3d transform transition duration-200">
+                                {child.title}
+                              </Span>
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
                     </Div>
                   </AccordionContent>
                 </AccordionItem>
