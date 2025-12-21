@@ -37,6 +37,7 @@ import Link from "next/link"
 import { twMerge } from "tailwind-merge"
 import { title } from "process"
 
+// sidebar url
 const data = {
   user: {
     name: "shadcn",
@@ -54,21 +55,6 @@ const data = {
     icon: IconDashboard
   },
   navMain: [
-    {
-      title: "Suppliers",
-      url: "#",
-      icon: IconFolder,
-      group: [
-        {
-          title: "Create",
-          url: "/admin/supplier/create",
-        },
-        {
-          title: "Details",
-          url: "/admin/supplier/details",
-        }
-      ]
-    },
     {
       title: "Products",
       url: "#",
@@ -98,213 +84,6 @@ const data = {
           title: "Product Create",
           url: "/admin/product/create",
         }
-      ]
-    },
-    {
-      title: "Inventory",
-      url: "#",
-      icon: IconFolder,
-      group: [
-        {
-          title: "Create",
-          url: "/admin/inventory",
-        },
-        {
-          title: "Return",
-          url: "/admin/inventory/return",
-        },
-        {
-          title: "Exchange",
-          url: "/admin/inventory/exchange",
-        },
-        {
-          title: "Manage",
-          url: "/admin/inventory/manage",
-        },
-        {
-          title: "Details",
-          url: "/admin/inventory/details",
-        }
-      ]
-    },
-    {
-      title: "Stock",
-      url: "#",
-      icon: IconFolder,
-      group: [
-        {
-          title: "Create",
-          url: "/admin/stock/create",
-        },
-        {
-          title: "Damage",
-          url: "/admin/stock/damage",
-        },
-        {
-          title: "Expaire",
-          url: "/admin/stock/expaire",
-        },
-        {
-          title: "Return",
-          url: "/admin/stock/return",
-        },
-        {
-          title: "Exchange",
-          url: "/admin/stock/exchange",
-        },
-        {
-          title: "Stock Summary",
-          url: "/admin/stock",
-        },
-        {
-          title: "Stock Register",
-          url: "/admin/stock/stock-register",
-        }
-      ]
-    },
-    {
-      title: "Customers",
-      url: "#",
-      icon: IconFolder,
-      group: [
-        {
-          title: "Create",
-          url: "/admin/customer",
-        },
-        {
-          title: "Details",
-          url: "/admin/customer/details",
-        }
-      ]
-    },
-    {
-      title: "Orders",
-      url: "#",
-      icon: IconFolder,
-      group: [
-        {
-          title: "Process",
-          url: "/admin/orders/process",
-        },
-        {
-          title: "Create",
-          url: "/admin/orders/create",
-        },
-        {
-          title: "Details",
-          url: "/admin/orders/details",
-        },
-        {
-          title: "Manage",
-          url: "/admin/orders/manage",
-        }
-      ]
-    },
-    {
-      title: "Sales",
-      url: "#",
-      icon: IconFolder,
-      group: [
-        {
-          title: "Invoice",
-          url: "/admin/sales/invoice",
-        },
-        {
-          title: "Sales Target",
-          url: "/admin/sales/details",
-        },
-        {
-          title: "Region Base Sales",
-          url: "/admin/sales/invoice",
-        },
-        {
-          title: "Sales Details",
-          url: "/admin/sales/details",
-        }
-      ]
-    },
-    {
-      title: "Expenses",
-      url: "#",
-      icon: IconFolder,
-      group: [
-        {
-          title: "Create",
-          url: "/admin/expenses/create",
-        },
-        {
-          title: "Details",
-          url: "/admin/expenses/details",
-        },
-        {
-          title: "Manage",
-          url: "/admin/expenses/manage",
-        },
-        {
-          title: "Expenses Register",
-          url: "/admin/expenses/expenses-register",
-        }
-      ]
-    },
-    {
-      title: "Vaoucher",
-      url: "#",
-      icon: IconFolder,
-      group: [
-        {
-          title: "Vaoucher Type",
-          url: "/admin/vaoucher/type",
-        },
-        {
-          title: "Create",
-          url: "/admin/vaoucher/create",
-        },
-        {
-          title: "Manage",
-          url: "/admin/vaoucher/manage",
-        },
-        {
-          title: "Vaoucher Details",
-          url: "/admin/vaoucher/details",
-        }
-      ]
-    },
-    {
-      title: "Budget",
-      url: "#",
-      icon: IconFolder,
-      group: [
-        {
-          title: "Budget Type",
-          url: "/admin/budget/type",
-        },
-        {
-          title: "Create",
-          url: "/admin/budget/create",
-        },
-        {
-          title: "Details",
-          url: "/admin/budget/details",
-        },
-        {
-          title: "Manage",
-          url: "/admin/budget/manage",
-        }
-      ]
-    },
-    {
-      title: "Requisition",
-      url: "#",
-      icon: IconFolder,
-      group: [
-        {
-          title: "Product Requisition",
-          url: "/admin/sales/product-requisition",
-        },
-        {
-          title: "Product Quation",
-          url: "/admin/sales/product-quation",
-        },
       ]
     },
     {
@@ -381,49 +160,30 @@ const data = {
   ],
   documents: [
     {
-      name: "Auth",
+      title: "Auth",
       url: "#",
       icon: IconFolder,
+      group: [
+        {
+          title: "User",
+          url: "/admin/auth/users",
+        },
+        {
+          title: "Role",
+          url: "/admin/role/create",
+        },
+      ]
     },
     {
-      name: "User",
+      title: "Forntend",
       url: "#",
       icon: IconFolder,
-    },
-    {
-      name: "Post",
-      url: "#",
-      icon: IconFolder,
-    },
-    {
-      name: "News Letter",
-      url: "#",
-      icon: IconFolder,
-    },
-    {
-      name: "Contracts",
-      url: "#",
-      icon: IconFolder,
-    },
-    {
-      name: "Cart",
-      url: "#",
-      icon: IconFolder,
-    },
-    {
-      name: "Wishlist",
-      url: "#",
-      icon: IconFolder,
-    },
-    {
-      name: "Data Library",
-      url: "#",
-      icon: IconDatabase,
-    },
-    {
-      name: "Reports",
-      url: "#",
-      icon: IconReport,
+      group: [
+        {
+          title: "Post",
+          url: "/admin/post/post-create",
+        },
+      ]
     },
   ],
 }

@@ -2,7 +2,7 @@
 
 import { IconCirclePlusFilled, IconMail, type Icon } from "@tabler/icons-react"
 
-import { Button } from "@/components/ui/button"
+import { motion} from "framer-motion";
 import {
   SidebarGroup,
   SidebarGroupContent,
@@ -35,27 +35,13 @@ export function NavMain({
     }[]
   }[]
 }) {
+
+
   return (
     <SidebarGroup>
       <SidebarGroupContent className="flex flex-col gap-2">
         {/* <SidebarMenu>
-          <SidebarMenuButton className="cursor-pointer">
-            <Link href={item.home.url} className={twMerge(
-              "peer/menu-button flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-hidden ring-sidebar-ring transition-[width,height,padding] focus-visible:ring-2 active:bg-sidebar-accent active:text-sidebar-accent-foreground disabled:pointer-events-none disabled:opacity-50 group-has-data-[sidebar=menu-action]/menu-item:pr-8 aria-disabled:pointer-events-none aria-disabled:opacity-50 data-[active=true]:bg-sidebar-accent data-[active=true]:font-medium data-[active=true]:text-sidebar-accent-foreground data-[state=open]:hover:bg-sidebar-accent data-[state=open]:hover:text-sidebar-accent-foreground group-data-[collapsible=icon]:size-8! group-data-[collapsible=icon]:p-2! [&>span:last-child]:truncate [&>svg]:size-4 [&>svg]:shrink-0 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground h-8 text-sm cursor-pointer",
-              "hover:bg-white hover:bg-[linear-gradient(to_right,#80808020_1px,transparent_1px),linear-gradient(to_bottom,#80808020_1px,transparent_1px)] hover:bg-size-[5px_5px] mask-size-[50%] hover:animate-[rotatedGrid_6s_linear_infinite]",
-            )}>
-              {item.home.icon && <item.icon />}
-              <span>{item.home.title}</span>
-            </Link>
-          </SidebarMenuButton>
           <SidebarMenuItem className="flex items-center gap-2">
-            <SidebarMenuButton
-              tooltip="Quick Create"
-              className="bg-primary text-primary-foreground hover:bg-primary/90 hover:text-primary-foreground active:bg-primary/90 active:text-primary-foreground min-w-8 duration-200 ease-linear"
-            >
-              <IconCirclePlusFilled />
-              <span>Quick Create</span>
-            </SidebarMenuButton>
             <Button
               size="icon"
               className="size-8 group-data-[collapsible=icon]:opacity-0"
@@ -85,9 +71,31 @@ export function NavMain({
                   </AccordionTrigger>
                   <AccordionContent>
                     <Div className="tree-root pl-4">
-                      <ul className="tree-list">
-                        {item.group?.map((child, index) => (
-                          <li key={child.title} className="tree-item">
+                      <motion.ul
+                        className="tree-root tree-list pl-4"
+                        initial="collapsed"
+                        animate="open"
+                        exit="collapsed"
+                        variants={{
+                          open: {
+                            transition: {
+                              staggerChildren: 0.05,
+                              delayChildren: 0.2,
+                            },
+                          },
+                          collapsed: {},
+                        }}
+                      >
+                        {item.group?.map((child) => (
+                          <motion.li
+                            key={child.title}
+                            className="tree-item"
+                            variants={{
+                              open: { opacity: 1, y: 0 },
+                              collapsed: { opacity: 0, y: -10 },
+                            }}
+                            transition={{ duration: 0.3, ease: "easeOut" }}
+                          >
                             <Link
                               href={child.url}
                               className={twMerge(
@@ -96,13 +104,13 @@ export function NavMain({
                                 "bg-white"
                               )}
                             >
-                              <Span className="text-gray-600 hover:text-gray-800 font-medium hover:scale-3d transform transition duration-200">
+                              <Span className="text-gray-600 hover:text-gray-800 font-medium">
                                 {child.title}
                               </Span>
                             </Link>
-                          </li>
+                          </motion.li>
                         ))}
-                      </ul>
+                      </motion.ul>
                     </Div>
                   </AccordionContent>
                 </AccordionItem>
@@ -113,4 +121,4 @@ export function NavMain({
       </SidebarGroupContent>
     </SidebarGroup>
   )
-}
+};

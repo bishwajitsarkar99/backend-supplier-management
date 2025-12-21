@@ -1749,9 +1749,12 @@ span.text-bounce {
   border-left: 1px dashed rgb(182, 182, 182);
 }
 .tree-item {
-  position: relative;
-  margin-left: 0.5rem;
-  padding-left: 0.5rem;
+    position: relative;
+    margin-left: 0.5rem;
+    padding-left: 0.5rem;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
 }
 .tree-item::before {
   content: "";
@@ -1769,3 +1772,10 @@ span.text-bounce {
 .tree-item:hover::before{
     border-top: none;
 }
+.accordion-content[data-state="open"] .tree-item {
+    opacity: 1;
+    transform: translateY(0);
+}
+.accordion-content[data-state="open"] .tree-item:nth-child(1) { transition-delay: 0.05s; }
+.accordion-content[data-state="open"] .tree-item:nth-child(2) { transition-delay: 0.1s; }
+.accordion-content[data-state="open"] .tree-item:nth-child(3) { transition-delay: 0.15s; }
